@@ -135,7 +135,7 @@ export class AdministradoresService {
     return this.http.delete<any>(`${environment.url_api}/admins-edit/?id=${idUser}`,{headers:headers});
   }
 
-  //Obtener el total de cada uno de los usuarios
+  //Obtener el total de cada uno de los usuarios del sistema
   public getTotalUsuarios(){
     var token = this.facadeService.getSessionToken();
     var headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});
