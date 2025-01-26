@@ -7,32 +7,32 @@ import DatalabelsPlugin from 'chartjs-plugin-datalabels';
   templateUrl: './graficas-screen.component.html',
   styleUrls: ['./graficas-screen.component.scss']
 })
-export class GraficasScreenComponent implements OnInit{
-  //Agregar chartjs-plugin-datalabels
-  //Variables
+export class GraficasScreenComponent implements OnInit {
+  // Variables
   public total_user: any = {};
-  //Histograma
+
+  // Histograma
   lineChartData = {
     labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
     datasets: [
       {
-        data:[89, 34, 43, 54, 28, 74, 93],
+        data: [89, 34, 43, 54, 28, 74, 93],
         label: 'Registro de materias',
         backgroundColor: '#F88406'
       }
     ]
   }
   lineChartOption = {
-    responsive:false
+    responsive: false
   }
-  lineChartPlugins = [ DatalabelsPlugin ];
+  lineChartPlugins = [DatalabelsPlugin];
 
-  //Barras
+  // Barras
   barChartData = {
     labels: ["Desarrollo Web", "Minería de Datos", "Redes", "Móviles", "Matemáticas"],
     datasets: [
       {
-        data:[34, 43, 54, 28, 74],
+        data: [34, 43, 54, 28, 74],
         label: 'Registro de materias',
         backgroundColor: [
           '#F88406',
@@ -45,15 +45,16 @@ export class GraficasScreenComponent implements OnInit{
     ]
   }
   barChartOption = {
-    responsive:false
+    responsive: false
   }
-  barChartPlugins = [ DatalabelsPlugin ];
-  //Circular
+  barChartPlugins = [DatalabelsPlugin];
+
+  // Circular (Pastel)
   pieChartData = {
     labels: ["Administradores", "Maestros", "Alumnos"],
     datasets: [
       {
-        data:[89, 34, 43],
+        data: [89, 34, 43],
         label: 'Registro de usuarios',
         backgroundColor: [
           '#FCFF44',
@@ -64,16 +65,16 @@ export class GraficasScreenComponent implements OnInit{
     ]
   }
   pieChartOption = {
-    responsive:false
+    responsive: false
   }
-  pieChartPlugins = [ DatalabelsPlugin ];
+  pieChartPlugins = [DatalabelsPlugin];
 
   // Doughnut
   doughnutChartData = {
     labels: ["Administradores", "Maestros", "Alumnos"],
     datasets: [
       {
-        data:[89, 34, 43],
+        data: [89, 34, 43], 
         label: 'Registro de usuarios',
         backgroundColor: [
           '#F88406',
@@ -84,25 +85,39 @@ export class GraficasScreenComponent implements OnInit{
     ]
   }
   doughnutChartOption = {
-    responsive:false
+    responsive: false
   }
-  doughnutChartPlugins = [ DatalabelsPlugin ];
+  doughnutChartPlugins = [DatalabelsPlugin];
 
   constructor(
     private administradoresServices: AdministradoresService
-  ){}
+  ) {}
 
   ngOnInit(): void {
     this.obtenerTotalUsers();
     console.log("Data: ", this.doughnutChartData);
   }
 
-  public obtenerTotalUsers(){
+  public obtenerTotalUsers() {
     this.administradoresServices.getTotalUsuarios().subscribe(
-      (response)=>{
+      (response) => {
         this.total_user = response;
         console.log("Total usuarios: ", this.total_user);
-      }, (error)=>{
+
+        
+        this.pieChartData.datasets[0].data = [
+          this.total_user.administradores,
+          this.total_user.maestros,
+          this.total_user.alumnos
+        ];
+
+        this.doughnutChartData.datasets[0].data = [
+          this.total_user.administradores,
+          this.total_user.maestros,
+          this.total_user.alumnos
+        ];
+      },
+      (error) => {
         alert("No se pudo obtener el total de cada rol de usuarios");
       }
     );

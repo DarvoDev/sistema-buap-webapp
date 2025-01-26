@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FacadeService } from 'src/app/services/facade.service';
+import { AuthService } from 'src/app/services/auth.service';
 declare var $:any;
 
 @Component({
@@ -11,6 +12,7 @@ declare var $:any;
 export class NavbarComponent implements OnInit{
   @Input() tipo: string = "";
   @Input() rol:string ="";
+  isAdmin: boolean = false;
 
   public token : string = "";
   public editar:boolean = false;
@@ -18,7 +20,8 @@ export class NavbarComponent implements OnInit{
   constructor(
     private facadeService: FacadeService,
     public activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ){}
 
   ngOnInit() {
@@ -31,6 +34,7 @@ export class NavbarComponent implements OnInit{
     if(this.activatedRoute.snapshot.params['id'] != undefined){
       this.editar = true;
     }
+    this.isAdmin = this.authService.getUserRole() === 'Admin';
 
   }
 

@@ -92,6 +92,22 @@ export class RegistroUsuariosScreenComponent implements OnInit{
         }
       );
     }//TODO: Aquí agregar el else para el caso del alumno
+    else if(this.rol == "alumno"){
+      this.alumnosService.getAlumnoByID(this.idUser).subscribe(
+        (response)=>{
+          this.user = response;
+          //Agregamos valores faltantes
+          this.user.first_name = response.user.first_name;
+          this.user.last_name = response.user.last_name;
+          this.user.email = response.user.email;
+          this.user.tipo_usuario = this.rol;
+          this.isAlumno = true;
+          console.log("Datos alumno: ", this.user);
+        }, (error)=>{
+          alert("No se pudieron obtener los datos del usuario para editar");
+        }
+      );
+    }
   }
 
   public radioChange(event: MatRadioChange) {

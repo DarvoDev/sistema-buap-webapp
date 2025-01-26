@@ -1,0 +1,94 @@
+<div class="wrapper">
+  <div class="header-home">
+    <app-navbar></app-navbar>
+  </div>
+  <div class="register-materia-form">
+    <h2>{{ editar ? 'Editar Materia' : 'Registrar Materia' }}</h2>
+    <form (ngSubmit)="onSubmit(materiaForm)" #materiaForm="ngForm">
+      
+      <!-- NRC -->
+      <div class="form-group">
+        <label for="nrc">NRC:</label>
+        <input id="nrc" name="nrc" type="text" [(ngModel)]="materia.nrc" required maxlength="6" class="form-control" mask="0000000">
+        <div *ngIf="errors.nrc" class="invalid-feedback">{{ errors.nrc }}</div>
+      </div>
+
+      <!-- Nombre -->
+      <div class="form-group">
+        <label for="nombre">Nombre de la Materia:</label>
+        <input id="nombre" name="nombre" type="text" [(ngModel)]="materia.nombre" required class="form-control">
+        <div *ngIf="errors.nombre" class="invalid-feedback">{{ errors.nombre }}</div>
+      </div>
+
+      <!-- Sección -->
+      <div class="form-group">
+        <label for="seccion">Sección:</label>
+        <input id="seccion" name="seccion" type="text" [(ngModel)]="materia.seccion" required maxlength="3" class="form-control" mask="000">
+        <div *ngIf="errors.seccion" class="invalid-feedback">{{ errors.seccion }}</div>
+      </div>
+
+      <!-- Días -->
+      <div class="form-group">
+        <label for="dias">Días:</label>
+        <div class="checkbox-group">
+          <mat-checkbox *ngFor="let dia of diasSemana" [(ngModel)]="diasSeleccionados[dia]" name="diasSeleccionados">
+            {{ dia }}
+          </mat-checkbox>
+        </div>
+        <div *ngIf="errors.diasSeleccionados" class="invalid-feedback">{{ errors.diasSeleccionados }}</div>
+      </div>
+
+      <!-- Horario -->
+      <div class="form-group">
+        <label for="horario">Horario:</label>
+        <div class="horario-field">
+          <label for="horario_inicio">Hora de Inicio:</label>
+          <input id="horario_inicio" name="horario_inicio" type="time" [(ngModel)]="materia.horario_inicio" required class="form-control">
+        </div>
+        <div class="horario-field">
+          <label for="horario_fin">Hora de Fin:</label>
+          <input id="horario_fin" name="horario_fin" type="time" [(ngModel)]="materia.horario_fin" required class="form-control">
+        </div>
+        <div *ngIf="errors.horario" class="invalid-feedback">{{ errors.horario }}</div>
+      </div>
+
+      <!-- Salón -->
+      <div class="form-group">
+        <label for="salon">Salón:</label>
+        <input id="salon" name="salon" type="text" [(ngModel)]="materia.salon" required class="form-control">
+        <div *ngIf="errors.salon" class="invalid-feedback">{{ errors.salon }}</div>
+      </div>
+
+      <!-- Programa -->
+      <div class="form-group">
+        <label for="programa">Programa Educativo:</label>
+        <select id="programa" name="programa" [(ngModel)]="materia.programa" required class="form-control">
+          <option value="Ingeniería en Ciencias de la Computación">Ingeniería en Ciencias de la Computación</option>
+          <option value="Licenciatura en Ciencias de la Computación">Licenciatura en Ciencias de la Computación</option>
+          <option value="Ingeniería en Tecnologías de la Información">Ingeniería en Tecnologías de la Información</option>
+        </select>
+        <div *ngIf="errors.programa" class="invalid-feedback">{{ errors.programa }}</div>
+      </div>
+
+      <!-- Profesor -->
+      <mat-form-field appearance="fill">
+        <mat-label>Seleccione un profesor</mat-label>
+        <mat-select [(ngModel)]="selectedMaestro" name="profesor" required>
+          <mat-option *ngFor="let maestro of maestros" [value]="maestro">
+            {{ maestro.nombre }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Créditos -->
+      <div class="form-group">
+        <label for="creditos">Créditos:</label>
+        <input id="creditos" name="creditos" type="number" [(ngModel)]="materia.creditos" required min="1" max="99" class="form-control" mask="00">
+        <div *ngIf="errors.creditos" class="invalid-feedback">{{ errors.creditos }}</div>
+      </div>
+
+      <!-- Botón de Envío -->
+      <button type="submit" class="btn btn-primary">{{ editar ? 'Actualizar' : 'Registrar' }}</button>
+    </form>
+  </div>
+</div>

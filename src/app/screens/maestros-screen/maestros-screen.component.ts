@@ -136,4 +136,3 @@ export interface DatosUsuario {
   cubiculo: string,
   area_investigacion: number,
 }
-

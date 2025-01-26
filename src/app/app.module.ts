@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
+
 //Este import es para los servicios HTTP
 import { HttpClientModule } from '@angular/common/http';
 
@@ -24,6 +25,12 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatDialogModule} from '@angular/material/dialog';
+import { MatTimepickerModule, provideNativeDateTimeAdapter } from "@dhutaryan/ngx-mat-timepicker";
+//import { MdcDatetimePickerModule, MdcNativeDatetimeModule } from 'angular-material-datetimepicker';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
+
 //Para usar el mask
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 //Cambia el idioma a español
@@ -39,6 +46,11 @@ import { MaestrosScreenComponent } from './screens/maestros-screen/maestros-scre
 import { EliminarUserModalComponent } from './modals/eliminar-user-modal/eliminar-user-modal.component';
 import { GraficasScreenComponent } from './screens/graficas-screen/graficas-screen.component';
 import { NgChartsModule } from 'ng2-charts';
+import { RegisterMateriaComponent } from './register-materia/register-materia.component';
+import { ListMateriasComponent } from './list-materias/list-materias.component';
+
+//import { MatDatetimepickerModule, MatNativeDatetimeModule } from '@mat-datetimepicker/core';
+//import { MatTimepickerModule } from "@dhutaryan/ngx-mat-timepicker";
 
 @NgModule({
   declarations: [
@@ -54,10 +66,14 @@ import { NgChartsModule } from 'ng2-charts';
     AlumnosScreenComponent,
     MaestrosScreenComponent,
     EliminarUserModalComponent,
-    GraficasScreenComponent
+    GraficasScreenComponent,
+    RegisterMateriaComponent,
+    ListMateriasComponent
+    
   ],
   imports: [
     BrowserModule,
+    MatFormFieldModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
@@ -75,9 +91,21 @@ import { NgChartsModule } from 'ng2-charts';
     MatTableModule,
     MatPaginatorModule,
     MatDialogModule,
-    NgChartsModule
+    NgChartsModule,
+    MatPaginatorModule,
+    MatTimepickerModule,
+    //MatDatetimepickerModule,
+    //MatNativeDatetimeModule,
+    NgxMaterialTimepickerModule,
+    
+
+    
+    
   ],
   providers: [
+    MatDatepickerModule,
+    MatNativeDateModule,
+    provideNativeDateTimeAdapter(),
     {provide: MAT_DATE_LOCALE, useValue: 'es-ES'},
     provideNgxMask()
   ],

@@ -125,7 +125,22 @@ export class AlumnosService {
     return this.http.post<any>(`${environment.url_api}/alumnos/`,data, httpOptions);
   }
 
+  public obtenerListaAlumnos(): Observable<any> {
+    const token = this.facadeService.getSessionToken();
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    return this.http.get<any>(`${environment.url_api}/lista-alumnos/`, { headers: headers });
+  }
+
   //TODO: Agregar servicio para editar alumno
+  public editarAlumno (data: any): Observable <any>{
+    var token = this.facadeService.getSessionToken();
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});
+    return this.http.put<any>(`${environment.url_api}/alumnos-edit/`, data, {headers:headers});
+  }
+
+  public getAlumnoByID(idUser: Number){
+    return this.http.get<any>(`${environment.url_api}/alumnos/?id=${idUser}`,httpOptions);
+  }
 
   //Eliminar Alumno
   public eliminarAlumno(idUser: number): Observable <any>{
@@ -134,3 +149,5 @@ export class AlumnosService {
     return this.http.delete<any>(`${environment.url_api}/alumnos-edit/?id=${idUser}`,{headers:headers});
   }
 }
+
+

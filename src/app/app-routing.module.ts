@@ -7,17 +7,25 @@ import { AdminScreenComponent } from './screens/admin-screen/admin-screen.compon
 import { AlumnosScreenComponent } from './screens/alumnos-screen/alumnos-screen.component';
 import { MaestrosScreenComponent } from './screens/maestros-screen/maestros-screen.component';
 import { GraficasScreenComponent } from './screens/graficas-screen/graficas-screen.component';
+import { ListMateriasComponent } from './list-materias/list-materias.component';
+import { RegisterMateriaComponent } from './register-materia/register-materia.component';
+
 
 const routes: Routes = [
-  //Pantalla principal del login
-  { path: '', component: LoginScreenComponent, pathMatch: 'full' },
+  // Pantalla principal del login
+  { path: '', component: LoginScreenComponent }, // Ruta inicial al login
   { path: 'registro-usuarios', component: RegistroUsuariosScreenComponent, pathMatch: 'full' },
-  { path: 'registro-usuarios/:rol/:id', component: RegistroUsuariosScreenComponent, pathMatch: 'full' },
-  { path: 'home', component: HomeScreenComponent, pathMatch: 'full' },
-  { path: 'alumnos', component: AlumnosScreenComponent, pathMatch: 'full' },
-  { path: 'maestros', component: MaestrosScreenComponent, pathMatch: 'full' },
-  { path: 'administrador', component: AdminScreenComponent, pathMatch: 'full' },
-  { path: 'graficas', component: GraficasScreenComponent, pathMatch: 'full' },
+  { path: 'registro-usuarios/:rol/:id', component: RegistroUsuariosScreenComponent, pathMatch: 'full'},
+  { path: 'home', component: HomeScreenComponent },
+  { path: 'alumnos', component: AlumnosScreenComponent },
+  { path: 'maestros', component: MaestrosScreenComponent },
+  { path: 'administrador', component: AdminScreenComponent },
+  { path: 'graficas', component: GraficasScreenComponent },
+  { path: 'lista-materias', component: ListMateriasComponent }, 
+  { path: 'registrar-materia', component: RegisterMateriaComponent},
+  { path: 'registrar-materia/:id', component: RegisterMateriaComponent},
+  { path: '**', redirectTo: '', pathMatch: 'full' }, 
+  
 ];
 
 @NgModule({

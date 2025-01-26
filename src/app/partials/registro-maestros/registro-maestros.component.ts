@@ -21,8 +21,8 @@ export class RegistroMaestrosComponent implements OnInit{
   public inputType_2: string = 'password';
 
   public maestro:any = {};
-  public errors:any = {};
-  public editar:boolean = false;
+    public errors:any = {};
+    public editar:boolean = false;
   public token: string = "";
   public idUser: Number = 0;
 
@@ -191,5 +191,16 @@ export class RegistroMaestrosComponent implements OnInit{
 
     this.maestro.fecha_nacimiento = event.value.toISOString().split("T")[0];
     console.log("Fecha: ", this.maestro.fecha_nacimiento);
+  }
+  public soloLetras(event: KeyboardEvent) {
+    const charCode = event.key.charCodeAt(0);
+    // Permitir solo letras (mayúsculas y minúsculas) y espacio
+    if (
+      !(charCode >= 65 && charCode <= 90) &&  // Letras mayúsculas
+      !(charCode >= 97 && charCode <= 122) && // Letras minúsculas
+      charCode !== 32                         // Espacio
+    ) {
+      event.preventDefault();
+    }
   }
 }
